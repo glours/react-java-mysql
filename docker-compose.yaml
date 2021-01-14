@@ -29,6 +29,7 @@ services:
       - 3000:3000
     volumes:
       - ./frontend/src:/code/src
+      - ./frontend/public:/code/public
       - /project/node_modules
     networks:
       - react-spring
