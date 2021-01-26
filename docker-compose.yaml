@@ -23,16 +23,13 @@ services:
       - spring-mysql
     depends_on:
       - db
+    restart: on-failure:5
   frontend:
     build:
       context: frontend
       target: development
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend/src:/code/src
-      - ./frontend/public:/code/public
-      - /project/node_modules
     networks:
       - react-spring
     depends_on:

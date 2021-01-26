@@ -13,8 +13,9 @@ services:
     networks:
       - spring-mysql
   backend:
-    build: backend
-    target: development
+    build:
+      context: backend
+      target: development
     environment:
       MYSQL_HOST: db
     networks:
@@ -22,11 +23,11 @@ services:
       - spring-mysql
     depends_on:
       - db
+    restart: on-failure:5
   frontend:
     build:
       context: frontend
       target: development
-    entrypoint: ""
     ports:
       - 3000:3000
     networks:
