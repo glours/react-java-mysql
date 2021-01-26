@@ -9,7 +9,7 @@ RUN npm ci
 ENV CI=true
 ENV PORT=3000
 
-CMD [ "npm", "start" ]
+ENTRYPOINT [ "npm", "start" ]
 
 FROM development AS build
 

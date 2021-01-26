@@ -1,14 +1,5 @@
 version: "3.7"
 services:
-  backend:
-    build: backend
-    environment:
-      MYSQL_HOST: db
-    networks:
-      - react-spring
-      - spring-mysql
-    depends_on:
-      - db
   db:
     environment:
       MYSQL_DATABASE: example
@@ -21,16 +12,23 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - spring-mysql
+  backend:
+    build: backend
+    target: development
+    environment:
+      MYSQL_HOST: db
+    networks:
+      - react-spring
+      - spring-mysql
+    depends_on:
+      - db
   frontend:
     build:
       context: frontend
       target: development
+    entrypoint: ""
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend/src:/code/src
-      - ./frontend/public:/code/public
-      - /project/node_modules
     networks:
       - react-spring
     depends_on:
