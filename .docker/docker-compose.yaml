@@ -4,7 +4,7 @@ services:
     environment:
       MYSQL_DATABASE: example
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db-password
-    image: mysql:8.0.19
+    image: mariadb:10.6.4-focal
     restart: always
     secrets:
       - db-password
@@ -24,6 +24,8 @@ services:
     depends_on:
       - db
     restart: on-failure:5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   frontend:
     build:
       context: frontend

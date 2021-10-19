@@ -9,6 +9,9 @@ WORKDIR /workdir/server/target/dependency
 
 FROM maven:3.6.3-jdk-11 as development
 COPY --from=builder /workdir/server/target/project-0.0.1-SNAPSHOT.jar /app/app.jar
+RUN useradd -s /bin/bash -m vscode
+RUN groupadd docker && usermod -aG docker vscode
+COPY --from=gloursdocker/docker / /
 ENTRYPOINT [ "java", "-jar", "/app/app.jar" ]
 
 FROM maven:3.6.3-jdk-11 as cache
